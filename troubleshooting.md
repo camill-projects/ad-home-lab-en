@@ -29,3 +29,13 @@
 - **Cause:** The login format changed, so the "does the user already exist" check did not recognize the old accounts and created everyone again.
 - **Fix:** Removed all users in the Firma OU except the test user with `Remove-ADUser`, then ran one corrected script. Final count: 100.
 - **Lesson:** Test scripts on a few users first and take snapshots before bulk changes.
+
+## 7. PowerShell ParserError: "Variable reference is not valid. ':' was not followed by a valid variable name character"
+- **Symptom:** A loop using `"FIRMA\GRP-$d:(OI)(CI)M"` failed with `InvalidVariableReferenceWithDrive` and nothing was created.
+- **Cause:** In a double-quoted string, `$d:` is parsed as a drive-qualified variable (like `$env:PATH`).
+- **Fix:** Delimit the variable name with braces: `${d}:`.
+
+## 8. Windows 10 client constantly at 100% CPU after installation
+- **Symptom:** CLIENT01 was very slow right after installation, the CPU stayed at 100%.
+- **Cause:** A fresh Windows 10 runs background tasks for a while (Windows Update, Defender scans, indexing), and the VM had only 2 vCPUs.
+- **Fix:** Shut the VM down properly, raised the CPU count to 4 in VirtualBox (Settings, System, Processor) and waited until the background activity finished.

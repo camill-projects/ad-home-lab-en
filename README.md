@@ -11,6 +11,7 @@ A hands-on home lab that simulates the IT environment of a company with **100 em
 | Resources | 4 GB RAM, 2 vCPU, 50 GB disk |
 | Domain | `firma.local` (NetBIOS: `FIRMA`) |
 | Network | Adapter 1: NAT (internet), Adapter 2: Internal Network (static IP 192.168.10.10/24) |
+| Client | Windows 10 Pro 22H2, hostname `CLIENT01`, joined to `firma.local` (IP 192.168.10.20) |
 
 ## Company structure
 
@@ -30,15 +31,16 @@ All users are fictional. Accounts are created with an initial password and **for
 1. [VM and Windows Server setup](01-vm-setup.md)
 2. [Domain controller promotion](02-domain-controller.md)
 3. [OUs, groups and users (PowerShell automation)](03-ou-groups-users.md)
-4. Network shares and permissions *(planned)*
-5. Group Policy (GPO) *(planned)*
-6. Windows client joined to the domain *(planned)*
+4. [Network shares and permissions](04-network-shares.md)
+5. [Windows client and permission tests](05-client-and-permissions.md)
+6. [Group Policy (GPO)](06-group-policy.md)
 7. Helpdesk scenarios: password reset, account unlock, missing access *(planned)*
 
 ## Scripts
 
 - [`create-ou-groups.ps1`](create-ou-groups.ps1): creates the OU structure and security groups
 - [`create-users.ps1`](create-users.ps1): creates 100 fictional users and assigns them to groups
+- [`create-shares.ps1`](create-shares.ps1): creates a network share per department, accessible only to its group
 
 ## Troubleshooting
 
@@ -50,4 +52,6 @@ Problems I ran into and how I solved them: [troubleshooting.md](troubleshooting.
 - Designing an OU structure and using security groups
 - Automating account creation with PowerShell (`New-ADUser`, `Add-ADGroupMember`)
 - Diagnosing and fixing script errors
+- Joining a Windows client to a domain and testing share permissions
+- Group Policy: password and lockout rules, per-department restrictions
 - Documenting every step
