@@ -39,3 +39,18 @@
 - **Symptom:** CLIENT01 was very slow right after installation, the CPU stayed at 100%.
 - **Cause:** A fresh Windows 10 runs background tasks for a while (Windows Update, Defender scans, indexing), and the VM had only 2 vCPUs.
 - **Fix:** Shut the VM down properly, raised the CPU count to 4 in VirtualBox (Settings, System, Processor) and waited until the background activity finished.
+
+## 9. New password rejected after an administrator password reset
+- **Symptom:** After signing in with a temporary password, Windows showed: "Unable to update the password. The value provided for the new password does not meet the length, complexity, or history requirements of the domain."
+- **Cause:** The new password did not meet the domain password policy (minimum length, complexity, no parts of the account name, no reuse of previous passwords).
+- **Fix:** Chose a password that met all the rules. It was accepted and the user signed in.
+
+## 10. "The Active Directory Domain Services object could not be displayed"
+- **Symptom:** After moving a user to another OU, opening the user's Properties from the search results window failed with this error.
+- **Cause:** The search results window still pointed to the old location of the object.
+- **Fix:** Closed the search window and opened the user from the OU tree (refreshed with F5).
+
+## 11. Old Group Policy still applied after moving a user to another OU
+- **Symptom:** After moving a user from the Sales OU to HR, Control Panel was still blocked by the Sales GPO, even though the user had signed in again.
+- **Cause:** User policies are applied in the background at sign-in on a domain-joined Windows 10 client, so the new set of policies can arrive only after a further refresh.
+- **Fix:** Ran `gpupdate /force` on the client and signed in again. Control Panel then opened normally. `gpresult /r /scope:user` shows which GPOs are applied to the user.

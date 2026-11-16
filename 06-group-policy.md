@@ -70,7 +70,10 @@ The policy affects only users in the Sales OU. Applied policies can be checked o
 - Computer policies (password and lockout) are applied to the domain, user policies (Control Panel) follow the user's OU.
 - The restriction message is a typical source of helpdesk tickets, so it is also used as a scenario in the helpdesk section.
 
-## Still to test
+## Account lockout test
 
-- Account lockout: five wrong passwords for one account, then unlock with `Unlock-ADAccount`.
+The lockout policy was tested with five wrong passwords on a user account, and the account was then unlocked by an administrator. The full ticket is in [07-helpdesk-scenarios.md](07-helpdesk-scenarios.md).
+
+## Not done yet
+
 - Optional: a drive-mapping preference (`S:` to `\\DC01\Sales`) for the Sales OU.
